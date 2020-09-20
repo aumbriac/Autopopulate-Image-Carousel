@@ -1,8 +1,8 @@
 <?php
 
-// Get the list of all files with .jpg extension in the directory and store them in an array
-$dir = "./img/*.jpeg";
-$images = glob($dir);
+// Get the list of all files with .jpeg extension in the directory and store them in an array
+$images = glob("./img/*.{jpg,jpeg,png,gif}", GLOB_BRACE);
+shuffle($images);
 
 ?>
 <!DOCTYPE html>
@@ -19,32 +19,42 @@ $images = glob($dir);
 </nav>
 
 <body>
-    <div id="carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <!-- For the carousel to work, it must have one image set to active -->
-            <div class="carousel-item active">
-                <img src="img/featured.jpeg">
-            </div>
-            <!-- Loop through image array -->
-            <?php foreach ($images as $image) : ?>
-                <div class="carousel-item">
-                    <img src="<?= $image; ?>">
+    <?php if ($images) : ?>
+        <div id="carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <!-- For the carousel to work, it must have one image set to active -->
+                <div class="carousel-item active">
+                    <img src="<?= $images[array_rand($images)]; ?>">
                 </div>
-            <?php endforeach; ?>
+                <!-- Loop through images array -->
+                <?php foreach ($images as $image) : 
+                // Prevent duplicate adjacent images
+                    if ($images[array_rand($images)] === $image) : 
+                        continue;
+                    else : ?>
+                    <div class="carousel-item">
+                        <img src="<?= $image; ?>">
+                    </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+    <?php else : ?>
+        <h1>No images to display</h1>
+    <?php endif; ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script>
+        // Allow photo navigation using keyCodes
         $(document).on('keydown', (e) => {
             if (e.keyCode === 27) { // Event listener for 'Esc' key
                 e.preventDefault();
