@@ -1,0 +1,23 @@
+html,
+body {
+ height: 100%;
+ overflow-x: hidden;
+}
+
+body {
+    background-color: #000;
+}   
+
+nav {
+ position: absolute;
+ top: 1rem;
+ right: 1rem;
+ z-index: 1;
+}
+
+img {
+ display: block;
+ width: auto;
+ height: 100vh;
+ margin: auto;
+}
