@@ -1,6 +1,6 @@
 <?php
 
-// Get the list of all files with .jpeg extension in the directory and store them in an array
+// Get the list of all image files in the '/img' directory and store them in an array
 $images = glob("./img/*.{jpg,jpeg,png,gif}", GLOB_BRACE);
 shuffle($images);
 
