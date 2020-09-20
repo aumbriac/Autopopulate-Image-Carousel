@@ -28,7 +28,7 @@ shuffle($images);
                 </div>
                 <!-- Loop through images array -->
                 <?php foreach ($images as $image) : 
-                // Prevent duplicate adjacent images
+                // Prevent adjacent images
                     if ($images[array_rand($images)] === $image) : 
                         continue;
                     else : ?>
