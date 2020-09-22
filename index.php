@@ -4,6 +4,8 @@
 $images = glob("./img/*.{jpg,jpeg,png,gif}", GLOB_BRACE);
 shuffle($images);
 
+$randomImage = $images[array_rand($images)];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +16,6 @@ shuffle($images);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<nav>
-    <span class='text-white small bg-dark p-1 rounded'>The Umbriac Estate</span>
-</nav>
 
 <body>
     <?php if ($images) : ?>
@@ -24,12 +23,12 @@ shuffle($images);
             <div class="carousel-inner">
                 <!-- For the carousel to work, it must have one image set to active -->
                 <div class="carousel-item active">
-                    <img src="<?= $images[array_rand($images)]; ?>">
+                    <img src="<?= $randomImage; ?>">
                 </div>
                 <!-- Loop through images array -->
                 <?php foreach ($images as $image) : 
                 // Prevent duplicate images
-                    if ($images[array_rand($images)] === $image) : 
+                    if ($randomImage === $image) : 
                         continue;
                     else : ?>
                     <div class="carousel-item">
@@ -60,9 +59,8 @@ shuffle($images);
     <script>
         // Allow photo navigation using keyCodes
         $(document).on('keydown', (e) => {
-            if (e.keyCode === 27) { // Event listener for 'Esc' key
-                e.preventDefault();
-                window.location = '../'; // Reroute to another page here when 'Esc' key is pressed
+            if (e.keyCode === 32) { 
+                $('#play').click(); // Event listener for space bar
             } else if (e.keyCode === 39) {
                 $(".carousel-control-next").click(); // Event listener for right arrow key
             } else if (e.keyCode === 37) {
