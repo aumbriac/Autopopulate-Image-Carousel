@@ -80,8 +80,6 @@ $(document).ready(function(){
             interval: 4000
         });
 
-        $('[data-toggle="popover"]').popover();
-
         $('#play').click(() => {
             if ($('#play').text() === 'Pause'){
                 $('.carousel').carousel('pause');
