@@ -29,3 +29,21 @@ h1 {
     position: absolute;
     color: #fff;
 }
+
+#bottom {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+#bottom span {
+    cursor: pointer;
+}
+
+.carousel-inner .carousel-item {
+    transition: -webkit-transform 1.5s ease;
+    transition: transform 1.5s ease;
+    transition: transform 1.5s ease, -webkit-transform 1.5s ease;
+}
