@@ -4,6 +4,8 @@
 $images = glob("./img/*.{jpg,jpeg,png,gif}", GLOB_BRACE);
 shuffle($images);
 
+$randomImage = $images[array_rand($images)];
+
 ?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
@@ -32,9 +34,6 @@ body {
 }
 
 </style>
-<div id="estate">
-  <span class="mx-auto">&copy; The Umbriac Estate</span>
-</div>
 <body>
 <!-- Slider main container -->
 <div class="swiper-container">
@@ -49,36 +48,11 @@ body {
                     " class="swiper-slide"></div>
         <?php endforeach; ?>
     </div>
-
-    <!-- <div class="swiper-pagination"></div> -->
-
-    <!-- If we need navigation buttons -->
-    <!-- <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div> -->
-
-    <!-- If we need scrollbar -->
-    <!-- <div class="swiper-scrollbar"></div> -->
 </div>
 </body>
 <script>
     var mySwiper = new Swiper('.swiper-container', {
-  // Optional parameters
   direction: 'horizontal',
-
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-  },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-
-  // And if we need scrollbar
-  scrollbar: {
-    el: '.swiper-scrollbar',
-  },
+  loop: true
 })
 </script>
