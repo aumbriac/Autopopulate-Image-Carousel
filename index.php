@@ -15,7 +15,7 @@ shuffle($images);
     <link rel="stylesheet" href="style.css">
 </head>
 <nav>
-    <span class='text-white small bg-dark p-1 rounded'>'Esc' to exit</span><br>
+    <span class='text-white small bg-dark p-1 rounded'>The Umbriac Estate</span>
 </nav>
 
 <body>
@@ -28,7 +28,7 @@ shuffle($images);
                 </div>
                 <!-- Loop through images array -->
                 <?php foreach ($images as $image) : 
-                // Prevent adjacent images
+                // Prevent duplicate images
                     if ($images[array_rand($images)] === $image) : 
                         continue;
                     else : ?>
@@ -50,21 +50,50 @@ shuffle($images);
     <?php else : ?>
         <h1>No images to display</h1>
     <?php endif; ?>
+    <div id="bottom">
+        <span id="play" class='text-white small bg-dark p-1 rounded'>Pause</span>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script>
         // Allow photo navigation using keyCodes
         $(document).on('keydown', (e) => {
             if (e.keyCode === 27) { // Event listener for 'Esc' key
                 e.preventDefault();
-                window.location = '#'; // Reroute to another page here when 'Esc' key is pressed
+                window.location = '../'; // Reroute to another page here when 'Esc' key is pressed
             } else if (e.keyCode === 39) {
                 $(".carousel-control-next").click(); // Event listener for right arrow key
             } else if (e.keyCode === 37) {
                 $(".carousel-control-prev").click(); // Event listener for left arrow key
             }
         });
+
+$(document).ready(function(){
+ if (
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+   navigator.userAgent
+  )
+ ) {
+  window.location = 'mobile.php';
+}
+        $('.carousel').carousel({
+            interval: 4000
+        });
+
+        $('[data-toggle="popover"]').popover();
+
+        $('#play').click(() => {
+            if ($('#play').text() === 'Pause'){
+                $('.carousel').carousel('pause');
+                $('#play').text('Play');
+            } else {
+                $('.carousel').carousel('cycle');
+                $('#play').text('Pause');
+            }
+        })
+    })
     </script>
 </body>
 
